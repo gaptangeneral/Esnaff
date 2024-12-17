@@ -1,0 +1,10 @@
+{% extends "employee/base_employee.html" %}
+
+{% block employee_content %}
+<h1 class="text-2xl font-bold mb-4">{% if object %}Çalışan Güncelle{% else %}Yeni Çalışan Ekle{% endif %}</h1>
+<form method="post" class="space-y-4">
+    {% csrf_token %}
+    {% include "employee/partials/_employee_form_fields.html" %}
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Kaydet</button>
+</form>
+{% endblock %}

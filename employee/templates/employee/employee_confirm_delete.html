@@ -1,0 +1,11 @@
+{% extends "employee/base_employee.html" %}
+
+{% block employee_content %}
+<h1 class="text-2xl font-bold mb-4">Çalışanı Sil</h1>
+<p><strong>{{ object }}</strong> adlı çalışanı silmek istediğinize emin misiniz?</p>
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">Evet, Sil</button>
+    <a href="{% url 'employee:employee-list' %}" class="ml-2 text-gray-700 hover:underline">İptal</a>
+</form>
+{% endblock %}

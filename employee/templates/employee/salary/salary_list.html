@@ -1,0 +1,48 @@
+{% extends "employee/base_employee.html" %}
+
+{% block employee_content %}
+<h1 class="text-2xl font-bold mb-4">Maaş Listesi</h1>
+<table class="min-w-full border-collapse">
+    <thead>
+        <tr>
+            <th class="border-b px-4 py-2 text-left">Çalışan</th>
+            <th class="border-b px-4 py-2 text-left">Dönem</th>
+            <th class="border-b px-4 py-2 text-left">Brüt Maaş</th>
+            <th class="border-b px-4 py-2 text-left">Net Maaş</th>
+            <th class="border-b px-4 py-2 text-left">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sal in salaries %}
+        <tr class="hover:bg-gray-100">
+            <td class="border-b px-4 py-2">{{ sal.employee }}</td>
+            <td class="border-b px-4 py-2">{{ sal.period_start }} - {{ sal.period_end }}</td>
+            <td class="border-b px-4 py-2">{{ sal.gross_salary }}</td>
+            <td class="border-b px-4 py-2">{{ sal.net_salary }}</td>
+            <td class="border-b px-4 py-2">
+                <a href="{% url 'employee:salary-edit' sal.pk %}" class="text-yellow-600 hover:underline">Düzenle</a> |
+                <a href="{% url 'employee:salary-delete' sal.pk %}" class="text-red-600 hover:underline">Sil</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center py-4 text-gray-500">Hiç maaş kaydı bulunamadı.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="flex justify-between mt-4">
+    <a href="{% url 'employee:salary-add' %}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+        Yeni Maaş Ekle
+    </a>
+    <div class="space-x-2">
+        <a href="{% url 'employee:employee-list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition">
+            Çalışan Listesine Dön
+        </a>
+        <a href="{% url 'dashboard:admin-dashboard' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition">
+            Ana Sayfa
+        </a>
+    </div>
+</div>
+{% endblock %}

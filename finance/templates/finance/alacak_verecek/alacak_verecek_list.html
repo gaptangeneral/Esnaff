@@ -1,0 +1,41 @@
+{% extends "finance/base_finance.html" %}
+
+{% block title %}Alacak Verecek Listesi{% endblock %}
+
+{% block page_content %}
+    {{ block.super }}
+    <h1>Alacak Verecek Listesi</h1>
+    <a href="{% url 'finance:alacak_verecek_olustur' %}">Yeni Alacak/Verecek Ekle</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th>Kategori</th>
+                <th>Miktar</th>
+                <th>Alacaklı/Verecekli</th>
+                <th>Açıklama</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in object_list %}
+                <tr>
+                    <td>{{ item.tarih }}</td>
+                    <td>{{ item.kategori }}</td>
+                    <td>{{ item.miktar }}</td>
+                    <td>{{ item.tip }}</td>
+                    <td>{{ item.aciklama }}</td>
+                    <td>
+                        <a href="{% url 'finance:alacak_verecek_guncelle' item.pk %}">Güncelle</a>
+                        <a href="{% url 'finance:alacak_verecek_sil' item.pk %}">Sil</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">Alacak veya verecek kaydı bulunmamaktadır.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

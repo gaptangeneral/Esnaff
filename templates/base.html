@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="tr" class="h-full">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Esnaff Projesi{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'dist/output.css' %}" rel="stylesheet"> <!-- Static dosya yolu -->
+
+    {% block extra_head %}
+    <!-- Ekstra head içeriği için -->
+    {% endblock %}
+
+    <style>
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Dropdown transition */
+        .dropdown-trigger .fa-chevron-down {
+            transition: transform 0.3s ease;
+        }
+        .dropdown-trigger .fa-chevron-down.fa-rotate-180 {
+            transform: rotate(180deg);
+        }
+        .dropdown-menu {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="h-full bg-gray-100">
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed top-0 left-0 h-full bg-white shadow-lg transition-all duration-300 ease-in-out overflow-hidden z-40 
+        w-16 hover:w-64 group" data-expanded="false">
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between p-4 border-b border-gray-200 h-16">
+            <div class="flex items-center">
+                <img src="/api/placeholder/40/40" alt="Logo" class="w-10 h-10 mr-3 rounded-full transition-all duration-300 
+                    group-[&[data-expanded='true']]:block hidden">
+                <span class="text-xl font-bold text-gray-800 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    Yönetici Paneli
+                </span>
+            </div>
+        </div>
+        
+        <!-- Search Input -->
+        <div class="p-4 border-b border-gray-200">
+            <div class="relative">
+                <input type="text" placeholder="Ara..." class="w-full pl-8 pr-2 py-2 text-gray-600 rounded-lg 
+                    border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 
+                    transition-all duration-300 opacity-0 group-hover:opacity-100">
+                <i class="fas fa-search absolute left-2 top-3 text-gray-400"></i>
+            </div>
+        </div>
+        
+        <!-- Navigation Menu -->
+        <nav class="py-4 custom-scrollbar overflow-y-auto h-[calc(100vh-200px)]">
+            <!-- Dashboard -->
+            <a href="{% url 'dashboard:admin-dashboard' %}" class="flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 group/item">
+                <i class="fas fa-tachometer-alt w-8 text-center text-gray-500 group-hover/item:text-blue-600"></i>
+                <span class="ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    Anasayfa
+                </span>
+            </a>
+
+            <!-- Personnel Management Dropdown -->
+            <div class="relative">
+                <div id="personnel-dropdown" class="dropdown-trigger flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 cursor-pointer group/item">
+                    <i class="fas fa-users w-8 text-center text-gray-500 group-hover/item:text-blue-600"></i>
+                    <span class="ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                        Personel Yönetimi
+                    </span>
+                    <i class="fas fa-chevron-down ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-500"></i>
+                </div>
+                <div id="personnel-submenu" class="dropdown-menu hidden pl-4 bg-gray-50">
+                    <a href="{% url 'employee:employee-add' %}" class="block px-4 py-2 text-gray-700 hover:bg-blue-100">
+                        <i class="fas fa-user-plus mr-2 text-gray-500"></i>Personel Ekle
+                    </a>
+                    <a href="{% url 'employee:employee-list' %}" class="block px-4 py-2 text-gray-700 hover:bg-blue-100">
+                        <i class="fas fa-list mr-2 text-gray-500"></i>Personel Listesi
+                    </a>
+                    <a href="{% url 'employee:attendance-list' %}" class="block px-4 py-2 text-gray-700 hover:bg-blue-100">
+                        <i class="fas fa-clock mr-2 text-gray-500"></i>Puantaj Listesi
+                    </a>
+                    <a href="{% url 'employee:attendance-add' %}" class="block px-4 py-2 text-gray-700 hover:bg-blue-100">
+                        <i class="fas fa-plus-circle mr-2 text-gray-500"></i>Yeni Puantaj
+                    </a>
+                </div>
+            </div>
+
+            <!-- Orders Dropdown -->
+            <div class="relative">
+                <div id="orders-dropdown" class="dropdown-trigger flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 cursor-pointer group/item">
+                    <i class="fas fa-shopping-cart w-8 text-center text-gray-500 group-hover/item:text-blue-600"></i>
+                    <span class="ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                        Siparişler
+                    </span>
+                    <i class="fas fa-chevron-down ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-500"></i>
+                </div>
+                <div id="orders-submenu" class="dropdown-menu hidden pl-4 bg-gray-50">
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-blue-100">
+                        <i class="fas fa-list-alt mr-2 text-gray-500"></i>Aktif Siparişler
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-blue-100">
+                        <i class="fas fa-history mr-2 text-gray-500"></i>Geçmiş Siparişler
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-blue-100">
+                        <i class="fas fa-chart-pie mr-2 text-gray-500"></i>Sipariş Analizi
+                    </a>
+                </div>
+            </div>
+
+            <!-- Reports -->
+            <a href="#" class="flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 group/item">
+                <i class="fas fa-chart-bar w-8 text-center text-gray-500 group-hover/item:text-blue-600"></i>
+                <span class="ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    Raporlar
+                </span>
+            </a>
+
+            <!-- Settings Dropdown -->
+            <div class="relative">
+                <div id="settings-dropdown" class="dropdown-trigger flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 cursor-pointer group/item">
+                    <i class="fas fa-cog w-8 text-center text-gray-500 group-hover/item:text-blue-600"></i>
+                    <span class="ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                        Ayarlar
+                    </span>
+                    <i class="fas fa-chevron-down ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gray-500"></i>
+                </div>
+                <div id="settings-submenu" class="dropdown-menu hidden pl-4 bg-gray-50">
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-blue-100">
+                        <i class="fas fa-user-cog mr-2 text-gray-500"></i>Kullanıcı Ayarları
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-blue-100">
+                        <i class="fas fa-lock mr-2 text-gray-500"></i>Güvenlik
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-blue-100">
+                        <i class="fas fa-database mr-2 text-gray-500"></i>Veri Yönetimi
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="ml-16 transition-all duration-300 w-full" id="main-content">
+        <header class="bg-white shadow-md p-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <button id="sidebar-toggle" class="mr-4 text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <h1 class="text-2xl font-bold text-gray-800">{% block header_title %}Ana İçerik{% endblock %}</h1>
+            </div>
+            <div class="flex items-center">
+                <div class="relative mr-4">
+                    <i class="fas fa-bell text-gray-600 hover:text-blue-600 cursor-pointer"></i>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                </div>
+                <div class="flex items-center">
+                    <img src="/api/placeholder/40/40" alt="Profil" class="w-10 h-10 rounded-full mr-2">
+                    <span class="text-gray-700 font-medium">{{ request.user.username }}</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Sayfa İçeriği -->
+        <div class="w-full px-4 py-8">
+            {% block page_content %}
+            <!-- Uygulama spesifik içerik burada gelecek -->
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- JavaScript for Sidebar and Dropdown Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            
+            // Persist sidebar state in localStorage
+            const isExpanded = localStorage.getItem('sidebarExpanded') === 'true';
+            if (isExpanded) {
+                sidebar.classList.add('w-64', 'hover:w-64');
+                sidebar.classList.remove('w-16');
+                sidebar.setAttribute('data-expanded', 'true');
+                mainContent.classList.add('ml-64');
+                mainContent.classList.remove('ml-16');
+            }
+
+            // Sidebar toggle functionality
+            sidebarToggle.addEventListener('click', () => {
+                const currentState = sidebar.getAttribute('data-expanded') === 'true';
+                
+                if (currentState) {
+                    // Collapse
+                    sidebar.classList.remove('w-64', 'hover:w-64');
+                    sidebar.classList.add('w-16');
+                    sidebar.setAttribute('data-expanded', 'false');
+                    mainContent.classList.remove('ml-64');
+                    mainContent.classList.add('ml-16');
+                    localStorage.setItem('sidebarExpanded', 'false');
+                } else {
+                    // Expand
+                    sidebar.classList.add('w-64', 'hover:w-64');
+                    sidebar.classList.remove('w-16');
+                    sidebar.setAttribute('data-expanded', 'true');
+                    mainContent.classList.add('ml-64');
+                    mainContent.classList.remove('ml-16');
+                    localStorage.setItem('sidebarExpanded', 'true');
+                }
+            });
+
+            // Hover functionality
+            sidebar.addEventListener('mouseenter', () => {
+                if (sidebar.getAttribute('data-expanded') === 'false') {
+                    sidebar.classList.add('w-64', 'hover:w-64');
+                    sidebar.classList.remove('w-16');
+                    mainContent.classList.add('ml-64');
+                    mainContent.classList.remove('ml-16');
+                }
+            });
+
+            sidebar.addEventListener('mouseleave', () => {
+                if (sidebar.getAttribute('data-expanded') === 'false') {
+                    sidebar.classList.remove('w-64', 'hover:w-64');
+                    sidebar.classList.add('w-16');
+                    mainContent.classList.remove('ml-64');
+                    mainContent.classList.add('ml-16');
+                }
+            });
+
+            // Dropdown menu functionality
+            const dropdownTriggers = document.querySelectorAll('.dropdown-trigger');
+            
+            dropdownTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    // Sidebar is expanded or not, dropdown should work
+                    const submenu = trigger.nextElementSibling;
+                    const chevronIcon = trigger.querySelector('.fa-chevron-down');
+                    
+                    // Close other open submenus
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        if (menu !== submenu) {
+                            menu.classList.add('hidden');
+                            const otherChevron = menu.previousElementSibling.querySelector('.fa-chevron-down');
+                            if (otherChevron) {
+                                otherChevron.classList.remove('fa-rotate-180');
+                            }
+                        }
+                    });
+
+                    // Toggle current submenu
+                    submenu.classList.toggle('hidden');
+                    
+                    // Rotate chevron icon
+                    if (chevronIcon) {
+                        chevronIcon.classList.toggle('fa-rotate-180');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% block extra_js %}
+    <!-- Ekstra JS kodları burada gelecek -->
+    {% endblock %}
+</body>
+</html>

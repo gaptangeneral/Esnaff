@@ -1,0 +1,18 @@
+{% extends "employee/base_employee.html" %}
+
+{% block employee_content %}
+<h1 class="text-2xl font-bold mb-4">{{ object.first_name }} {{ object.last_name }}</h1>
+<ul class="list-disc ml-5 space-y-1">
+    <li><strong>E-posta:</strong> {{ object.email }}</li>
+    <li><strong>Telefon:</strong> {{ object.phone }}</li>
+    <li><strong>Departman:</strong> {{ object.department }}</li>
+    <li><strong>Pozisyon:</strong> {{ object.position }}</li>
+    <li><strong>Maaş:</strong> {{ object.salary_amount }}</li>
+    <li><strong>İşe Başlama Tarihi:</strong> {{ object.hire_date }}</li>
+    <li><strong>Aktif:</strong> {{ object.is_active|yesno:"Evet,Hayır" }}</li>
+</ul>
+<div class="mt-4 space-x-2">
+    <a href="{% url 'employee:employee-edit' object.pk %}" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">Düzenle</a>
+    <a href="{% url 'employee:employee-delete' object.pk %}" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">Sil</a>
+</div>
+{% endblock %}

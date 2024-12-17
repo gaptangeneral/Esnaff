@@ -1,0 +1,32 @@
+{% extends "employee/base_employee.html" %}
+
+{% block employee_content %}
+<h1 class="text-2xl font-bold mb-4">Çalışan İstatistikleri</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-white p-4 shadow-sm rounded">
+        <h2 class="font-semibold mb-2">Toplam Çalışan Sayısı</h2>
+        <p class="text-xl">{{ total_employees }}</p>
+    </div>
+    <div class="bg-white p-4 shadow-sm rounded">
+        <h2 class="font-semibold mb-2">Ortalama Maaş</h2>
+        <p class="text-xl">{{ average_salary }}</p>
+    </div>
+    <div class="bg-white p-4 shadow-sm rounded">
+        <h2 class="font-semibold mb-2">Toplam Maaş</h2>
+        <p class="text-xl">{{ total_salary }}</p>
+    </div>
+    <div class="bg-white p-4 shadow-sm rounded">
+        <h2 class="font-semibold mb-2">Devamsızlık Oranı</h2>
+        <p class="text-xl">{{ absence_rate }}%</p>
+    </div>
+</div>
+
+<div class="bg-white p-4 shadow-sm rounded mt-4">
+    <h2 class="font-semibold mb-2">Departman Bazında Çalışan Sayıları</h2>
+    <ul class="list-disc ml-5 space-y-1">
+        {% for dept in department_distribution %}
+        <li>{{ dept.department__name }}: {{ dept.count }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

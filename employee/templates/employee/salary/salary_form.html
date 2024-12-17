@@ -1,0 +1,23 @@
+{% extends "employee/base_employee.html" %}
+
+{% block employee_content %}
+<h1 class="text-2xl font-bold mb-4">
+    {% if object %}Maaş Kaydını Güncelle{% else %}Yeni Maaş Ekle{% endif %}
+</h1>
+<form method="post" class="max-w-md mx-auto bg-white p-4 shadow rounded space-y-4">
+    {% csrf_token %}
+    {% include "employee/partials/_salary_form_fields.html" %}
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+        Kaydet
+    </button>
+</form>
+
+<div class="flex justify-between mt-4">
+    <a href="{% url 'employee:salary-list' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition">
+        Maaş Listesine Dön
+    </a>
+    <a href="{% url 'dashboard:admin-dashboard' %}" class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition">
+        Ana Sayfa
+    </a>
+</div>
+{% endblock %}
