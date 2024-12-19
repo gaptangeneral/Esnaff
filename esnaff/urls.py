@@ -22,6 +22,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),  # Accounts modülü için URL yönlendirmesi
     path('dashboard/', include('dashboard.urls')),
     path('employees/', include('employee.urls', namespace='employee')),    path('finance/', include('finance.urls')),  # Yeni modül için bağlantı
+    path('product/', include('product.urls')),  # product uygulamasının URL'lerini ekleyin
+
 
 
 ]

@@ -3,6 +3,30 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from .models import GelirGider, AlacakVerecek, CekSenet, Fis, Fatura, Veresiye, Kategori
 from .forms import KategoriForm, GelirGiderForm, AlacakVerecekForm, CekSenetForm, FisForm, FaturaForm, VeresiyeForm
+from .models import Kasa
+from .forms import KasaForm  # KasaForm'u içe aktarın
+
+class KasaListView(ListView):
+    model = Kasa
+    template_name = 'finance/kasa/kasa_list.html'
+    context_object_name = 'kasa_list'
+
+class KasaCreateView(CreateView):
+    model = Kasa
+    form_class = KasaForm
+    template_name = 'finance/kasa/kasa_form.html'
+    success_url = reverse_lazy('finance:kasa_list')
+
+class KasaUpdateView(UpdateView):
+    model = Kasa
+    form_class = KasaForm
+    template_name = 'finance/kasa/kasa_form.html'
+    success_url = reverse_lazy('finance:kasa_list')
+
+class KasaDeleteView(DeleteView):
+    model = Kasa
+    template_name = 'finance/kasa/kasa_confirm_delete.html'
+    success_url = reverse_lazy('finance:kasa_list')
 
 # Kategori Görünümleri
 class KategoriListView(ListView):
@@ -80,12 +104,13 @@ class AlacakVerecekListView(ListView):
     model = AlacakVerecek
     template_name = 'finance/alacak_verecek/alacak_verecek_list.html'
     context_object_name = 'alacak_verecek_list'
+    
 
 class AlacakVerecekCreateView(CreateView):
     model = AlacakVerecek
     form_class = AlacakVerecekForm
     template_name = 'finance/alacak_verecek/alacak_verecek_form.html'
-    success_url = reverse_lazy('alacak_verecek_listesi')
+    success_url = reverse_lazy('finance:alacak_verecek_listesi')
 
     def form_valid(self, form):
         messages.success(self.request, "Alacak/Verecek başarıyla kaydedildi.")
@@ -120,7 +145,7 @@ class CekSenetCreateView(CreateView):
     model = CekSenet
     form_class = CekSenetForm
     template_name = 'finance/cek_senet/cek_senet_form.html'
-    success_url = reverse_lazy('cek_senet_listesi')
+    success_url = reverse_lazy('finance:cek_senet_listesi')
 
     def form_valid(self, form):
         messages.success(self.request, "Çek/Senet başarıyla kaydedildi.")
@@ -130,7 +155,7 @@ class CekSenetUpdateView(UpdateView):
     model = CekSenet
     form_class = CekSenetForm
     template_name = 'finance/cek_senet/cek_senet_form.html'
-    success_url = reverse_lazy('cek_senet_listesi')
+    success_url = reverse_lazy('finance:cek_senet_listesi')
 
     def form_valid(self, form):
         messages.success(self.request, "Çek/Senet başarıyla güncellendi.")
@@ -139,7 +164,7 @@ class CekSenetUpdateView(UpdateView):
 class CekSenetDeleteView(DeleteView):
     model = CekSenet
     template_name = 'finance/cek_senet/cek_senet_confirm_delete.html'
-    success_url = reverse_lazy('cek_senet_listesi')
+    success_url = reverse_lazy('finance:cek_senet_listesi')
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Çek/Senet başarıyla silindi.")
@@ -165,7 +190,7 @@ class FisUpdateView(UpdateView):
     model = Fis
     form_class = FisForm
     template_name = 'finance/fis/fis_form.html'
-    success_url = reverse_lazy('fis_listesi')
+    success_url = reverse_lazy('finance:fis_listesi')
 
     def form_valid(self, form):
         messages.success(self.request, "Fiş başarıyla güncellendi.")
@@ -174,7 +199,7 @@ class FisUpdateView(UpdateView):
 class FisDeleteView(DeleteView):
     model = Fis
     template_name = 'finance/fis/fis_confirm_delete.html'
-    success_url = reverse_lazy('fis_listesi')
+    success_url = reverse_lazy('finance:fis_listesi')
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Fiş başarıyla silindi.")
@@ -190,7 +215,7 @@ class FaturaCreateView(CreateView):
     model = Fatura
     form_class = FaturaForm
     template_name = 'finance/fatura/fatura_form.html'
-    success_url = reverse_lazy('fatura_listesi')
+    success_url = reverse_lazy('finance:fatura_listesi')
 
     def form_valid(self, form):
         messages.success(self.request, "Fatura başarıyla kaydedildi.")
@@ -205,7 +230,7 @@ class FaturaUpdateView(UpdateView):
     model = Fatura
     form_class = FaturaForm
     template_name = 'finance/fatura/fatura_form.html'
-    success_url = reverse_lazy('fatura_listesi')
+    success_url = reverse_lazy('finance:fatura_listesi')
 
     def form_valid(self, form):
         messages.success(self.request, "Fatura başarıyla güncellendi.")
@@ -214,7 +239,7 @@ class FaturaUpdateView(UpdateView):
 class FaturaDeleteView(DeleteView):
     model = Fatura
     template_name = 'finance/fatura/fatura_confirm_delete.html'
-    success_url = reverse_lazy('fatura_listesi')
+    success_url = reverse_lazy('finance:fatura_listesi')
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Fatura başarıyla silindi.")
@@ -230,7 +255,7 @@ class VeresiyeCreateView(CreateView):
     model = Veresiye
     form_class = VeresiyeForm
     template_name = 'finance/veresiye/veresiye_form.html'
-    success_url = reverse_lazy('veresiye_listesi')
+    success_url = reverse_lazy('finance:veresiye_listesi')
 
     def form_valid(self, form):
         messages.success(self.request, "Veresiye başarıyla kaydedildi.")
@@ -240,7 +265,7 @@ class VeresiyeUpdateView(UpdateView):
     model = Veresiye
     form_class = VeresiyeForm
     template_name = 'finance/veresiye/veresiye_form.html'
-    success_url = reverse_lazy('veresiye_listesi')
+    success_url = reverse_lazy('finance:veresiye_listesi')
 
     def form_valid(self, form):
         messages.success(self.request, "Veresiye başarıyla güncellendi.")
@@ -249,7 +274,7 @@ class VeresiyeUpdateView(UpdateView):
 class VeresiyeDeleteView(DeleteView):
     model = Veresiye
     template_name = 'finance/veresiye/veresiye_confirm_delete.html'
-    success_url = reverse_lazy('veresiye_listesi')
+    success_url = reverse_lazy('finance:veresiye_listesi')
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Veresiye başarıyla silindi.")

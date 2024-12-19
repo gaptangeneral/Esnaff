@@ -1,0 +1,36 @@
+{% extends "finance/base_finance.html" %}
+
+{% block finance_content %}
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-2xl font-bold">Kategori Listesi</h1>
+  <a href="{% url 'finance:kategori_olustur' %}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+    Yeni Kategori Ekle
+  </a>
+</div>
+
+<table class="min-w-full border-collapse">
+  <thead>
+    <tr>
+      <th class="border-b px-4 py-2 text-left">Ad</th>
+      <th class="border-b px-4 py-2 text-left">Tür</th>
+      <th class="border-b px-4 py-2 text-left">İşlemler</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for kategori in kategori_list %}
+    <tr class="hover:bg-gray-100">
+      <td class="border-b px-4 py-2">{{ kategori.ad }}</td>
+      <td class="border-b px-4 py-2">{{ kategori.tür }}</td>
+      <td class="border-b px-4 py-2">
+        <a href="{% url 'finance:kategori_guncelle' kategori.pk %}" class="text-yellow-600 hover:underline">Düzenle</a> |
+        <a href="{% url 'finance:kategori_sil' kategori.pk %}" class="text-red-600 hover:underline">Sil</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3" class="text-center py-4 text-gray-500">Kategori kaydı bulunmamaktadır.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

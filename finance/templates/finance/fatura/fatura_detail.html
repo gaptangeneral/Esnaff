@@ -1,0 +1,37 @@
+{% extends "finance/base_finance.html" %}
+
+{% block finance_content %}
+<h1 class="text-2xl font-bold mb-4">Fatura Detayı</h1>
+
+<div class="grid grid-cols-2 gap-4">
+  <div>
+    <p class="font-bold">Fatura Numarası:</p>
+    <p>{{ fatura.numara }}</p>
+  </div>
+  <div>
+    <p class="font-bold">Müşteri:</p>
+    <p>{{ fatura.müşteri }}</p>
+  </div>
+  <div>
+    <p class="font-bold">Tutar:</p>
+    <p>{{ fatura.tutar }}</p>
+  </div>
+  <div>
+    <p class="font-bold">Tarih:</p>
+    <p>{{ fatura.tarih }}</p>
+  </div>
+  <div>
+    <p class="font-bold">KDV Oranı:</p>
+    <p>{{ fatura.kdv_oranı }}</p>
+  </div>
+  <div>
+    <p class="font-bold">Kasa:</p>
+    <p>{{ fatura.kasa }}</p>
+  </div>
+</div>
+
+<div class="mt-4">
+  <a href="{% url 'finance:fatura_guncelle' fatura.pk %}" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">Düzenle</a>
+  <a href="{% url 'finance:fatura_sil' fatura.pk %}" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">Sil</a>
+</div>
+{% endblock %}

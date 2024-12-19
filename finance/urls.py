@@ -44,4 +44,8 @@ urlpatterns = [
     path('veresiye/yeni/', views.VeresiyeCreateView.as_view(), name='veresiye_olustur'),
     path('veresiye/<int:pk>/guncelle/', views.VeresiyeUpdateView.as_view(), name='veresiye_guncelle'),
     path('veresiye/<int:pk>/sil/', views.VeresiyeDeleteView.as_view(), name='veresiye_sil'),
+    path('kasa/', views.KasaListView.as_view(), name='kasa_list'),
+    path('kasa/yeni/', views.KasaCreateView.as_view(), name='kasa_olustur'),
+    path('kasa/<int:pk>/guncelle/', views.KasaUpdateView.as_view(), name='kasa_guncelle'),
+    path('kasa/<int:pk>/sil/', views.KasaDeleteView.as_view(), name='kasa_sil'),
 ]

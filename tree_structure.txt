@@ -1,4 +1,49 @@
-── accounts
+├── .git
+│   ├── FETCH_HEAD
+│   ├── HEAD
+│   ├── config
+│   ├── description
+│   ├── hooks
+│   │   ├── applypatch-msg.sample
+│   │   ├── commit-msg.sample
+│   │   ├── fsmonitor-watchman.sample
+│   │   ├── post-update.sample
+│   │   ├── pre-applypatch.sample
+│   │   ├── pre-commit.sample
+│   │   ├── pre-merge-commit.sample
+│   │   ├── pre-push.sample
+│   │   ├── pre-rebase.sample
+│   │   ├── pre-receive.sample
+│   │   ├── prepare-commit-msg.sample
+│   │   ├── push-to-checkout.sample
+│   │   ├── sendemail-validate.sample
+│   │   └── update.sample
+│   ├── index
+│   ├── info
+│   │   └── exclude
+│   ├── logs
+│   │   ├── HEAD
+│   │   └── refs
+│   │       ├── heads
+│   │       │   └── main
+│   │       └── remotes
+│   │           └── origin
+│   │               └── HEAD
+│   ├── objects
+│   │   ├── info
+│   │   └── pack
+│   │       ├── pack-6a404d1d7864766dead2a73c06bde1d10c91f135.idx
+│   │       ├── pack-6a404d1d7864766dead2a73c06bde1d10c91f135.pack
+│   │       └── pack-6a404d1d7864766dead2a73c06bde1d10c91f135.rev
+│   ├── packed-refs
+│   └── refs
+│       ├── heads
+│       │   └── main
+│       ├── remotes
+│       │   └── origin
+│       │       └── HEAD
+│       └── tags
+├── accounts
 │   ├── __init__.py
 │   ├── __pycache__
 │   │   ├── __init__.cpython-312.pyc
@@ -10,15 +55,33 @@
 │   ├── admin.py
 │   ├── apps.py
 │   ├── forms.py
-│   ├── migrations
 │   ├── models.py
 │   ├── templates
-│   │   ├── accounts
-│   │   │   ├── login.html
-│   │   │   ├── password_reset.html
-│   │   │   ├── password_reset_done.html
-│   │   │   └── register.html
-│   │   └── home.html
+│   │   └── accounts
+│   │       ├── login.html
+│   │       ├── password_reset.html
+│   │       ├── password_reset_done.html
+│   │       └── register.html
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── common
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── admin.cpython-312.pyc
+│   │   ├── apps.cpython-312.pyc
+│   │   ├── base_forms.cpython-312.pyc
+│   │   └── models.cpython-312.pyc
+│   ├── admin.py
+│   ├── apps.py
+│   ├── base_forms.py
+│   ├── migrations
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       └── __init__.cpython-312.pyc
+│   ├── models.py
+│   ├── readme.txt
 │   ├── tests.py
 │   ├── urls.py
 │   └── views.py
@@ -42,7 +105,6 @@
 │   │   └── views.cpython-312.pyc
 │   ├── admin.py
 │   ├── apps.py
-│   ├── migrations
 │   ├── models.py
 │   ├── templates
 │   │   └── dashboard
@@ -54,6 +116,7 @@
 ├── db.sqlite3
 ├── dist
 │   └── output.css
+├── dosya_olustur.py
 ├── employee
 │   ├── __init__.py
 │   ├── __pycache__
@@ -69,24 +132,35 @@
 │   ├── forms.py
 │   ├── migrations
 │   │   ├── 0001_initial.py
+│   │   ├── 0002_department_remove_employee_department_and_more.py
+│   │   ├── 0003_alter_department_options_alter_position_options_and_more.py
 │   │   ├── __init__.py
 │   │   └── __pycache__
 │   │       ├── 0001_initial.cpython-312.pyc
+│   │       ├── 0002_department_remove_employee_department_and_more.cpython-312.pyc
+│   │       ├── 0003_alter_department_options_alter_position_options_and_more.cpython-312.pyc
 │   │       └── __init__.cpython-312.pyc
 │   ├── models.py
 │   ├── templates
-│   │   ├── attandance
 │   │   └── employee
-│   │       ├── attendance_form.html
-│   │       ├── attendance_list.html
+│   │       ├── attendance
+│   │       │   ├── attendance_confirm_delete.html
+│   │       │   ├── attendance_form.html
+│   │       │   └── attendance_list.html
+│   │       ├── base_employee.html
 │   │       ├── employee_confirm_delete.html
 │   │       ├── employee_detail.html
 │   │       ├── employee_form.html
 │   │       ├── employee_list.html
 │   │       ├── employee_statistics.html
-│   │       ├── salary_confirm_delete.html
-│   │       ├── salary_form.html
-│   │       └── salary_list.html
+│   │       ├── partials
+│   │       │   ├── _attendance_form_fields.html
+│   │       │   ├── _employee_form_fields.html
+│   │       │   └── _salary_form_fields.html
+│   │       └── salary
+│   │           ├── salary_confirm_delete.html
+│   │           ├── salary_form.html
+│   │           └── salary_list.html
 │   ├── templatetags
 │   │   ├── __pycache__
 │   │   │   └── custom_filters.cpython-312.pyc
@@ -120,8 +194,6 @@
 │   ├── forms.py
 │   ├── migrations
 │   │   ├── 0001_initial.py
-│   │   ├── 0002_alter_fatura_tarih_alter_fis_tarih.py
-│   │   ├── 0003_alter_ceksenet_tarih.py
 │   │   ├── __init__.py
 │   │   └── __pycache__
 │   │       ├── 0001_initial.cpython-312.pyc
@@ -130,20 +202,40 @@
 │   │       └── __init__.cpython-312.pyc
 │   ├── models.py
 │   ├── templates
-│   │   ├── base.html
 │   │   └── finance
-│   │       ├── alacak_verecek_confirm_delete.html
-│   │       ├── alacak_verecek_form.html
-│   │       ├── alacak_verecek_list.html
-│   │       ├── cek_senet_form.html
-│   │       ├── cek_senet_list.html
-│   │       ├── gelir_gider_confirm_delete.html
-│   │       ├── gelir_gider_form.html
-│   │       └── gelir_gider_list.html
+│   │       ├── alacak_verecek
+│   │       │   ├── alacak_verecek_confirm_delete.html
+│   │       │   ├── alacak_verecek_form.html
+│   │       │   └── alacak_verecek_list.html
+│   │       ├── base_finance.html
+│   │       ├── cek_senet
+│   │       │   ├── cek_senet_confirm_delete.html
+│   │       │   ├── cek_senet_form.html
+│   │       │   └── cek_senet_list.html
+│   │       ├── fatura
+│   │       │   ├── fatura_confirm_delete.html
+│   │       │   ├── fatura_detail.html
+│   │       │   ├── fatura_form.html
+│   │       │   └── fatura_list.html
+│   │       ├── fis
+│   │       │   ├── fis_confirm_delete.html
+│   │       │   ├── fis_form.html
+│   │       │   └── fis_list.html
+│   │       ├── gelir_gider
+│   │       │   ├── gelir_gider_confirm_delete.html
+│   │       │   ├── gelir_gider_form.html
+│   │       │   └── gelir_gider_list.html
+│   │       ├── kategori
+│   │       │   ├── kategori_confirm_delete.html
+│   │       │   ├── kategori_form.html
+│   │       │   └── kategori_list.html
+│   │       └── veresiye
+│   │           ├── veresiye_form.html
+│   │           └── veresiye_list.html
 │   ├── tests.py
 │   ├── urls.py
 │   └── views.py
-├├── manage.py
+├── manage.py
 ├── node_modules
 │   ├── .bin
 │   │   ├── autoprefixer
@@ -6051,5 +6143,7 @@
 │   └── src
 │       └── tailwind.css
 ├── tailwind.config.js
+├── templates
+│   └── base.html
 ├── tree.py
 └── tree_structure.txt

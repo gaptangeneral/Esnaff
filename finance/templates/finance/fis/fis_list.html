@@ -1,0 +1,42 @@
+{% extends "finance/base_finance.html" %}
+
+{% block finance_content %}
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-2xl font-bold">Fiş Listesi</h1>
+  <a href="{% url 'finance:fis_olustur' %}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+    Yeni Fiş Ekle
+  </a>
+</div>
+
+<table class="min-w-full border-collapse">
+  <thead>
+    <tr>
+      <th class="border-b px-4 py-2 text-left">Tür</th>
+      <th class="border-b px-4 py-2 text-left">Tutar</th>
+      <th class="border-b px-4 py-2 text-left">Tarih</th>
+      <th class="border-b px-4 py-2 text-left">Kasa</th>
+      <th class="border-b px-4 py-2 text-left">Açıklama</th>
+      <th class="border-b px-4 py-2 text-left">İşlemler</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for fis in fis_list %}
+    <tr class="hover:bg-gray-100">
+      <td class="border-b px-4 py-2">{{ fis.tür }}</td>
+      <td class="border-b px-4 py-2">{{ fis.tutar }}</td>
+      <td class="border-b px-4 py-2">{{ fis.tarih }}</td>
+      <td class="border-b px-4 py-2">{{ fis.kasa }}</td>
+      <td class="border-b px-4 py-2">{{ fis.açıklama }}</td>
+      <td class="border-b px-4 py-2">
+        <a href="{% url 'finance:fis_guncelle' fis.pk %}" class="text-yellow-600 hover:underline">Düzenle</a> |
+        <a href="{% url 'finance:fis_sil' fis.pk %}" class="text-red-600 hover:underline">Sil</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="6" class="text-center py-4 text-gray-500">Fiş kaydı bulunmamaktadır.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

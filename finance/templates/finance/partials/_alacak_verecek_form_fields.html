@@ -1,0 +1,16 @@
+{% for field in form %}
+<div class="flex flex-col">
+    {% if field.name == 'durum' %}
+    <div class="invisible">{{ field.label_tag }}</div> 
+    {% else %}
+    {{ field.label_tag }} {## Sadece label_tag kalsın ##}
+    {% endif %}
+    {{ field }} {## field ifadesi burada ##}
+    {% if field.help_text %}
+    <p class="text-sm text-gray-500">{{ field.help_text }}</p>
+    {% endif %}
+    {% if field.errors %}
+    <p class="text-red-600">{{ field.errors }}</p>
+    {% endif %}
+</div>
+{% endfor %}
